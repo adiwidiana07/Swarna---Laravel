@@ -1,0 +1,219 @@
+/* ═══════════════════════════════════════════
+   login.css  —  SWARNA Login Page
+═══════════════════════════════════════════ */
+
+:root {
+  --black:   #0e0d0c;
+  --deep:    #111009;
+  --gold:    #c9a84c;
+  --gold-lt: #e2c97e;
+  --white:   #f5f0eb;
+  --grey:    #7a7570;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Jost', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Body ── */
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+/* Background motif */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23c9a84c' stroke-width='.3'%3E%3Cpolygon points='30,5 55,55 5,55'/%3E%3Cpolygon points='30,55 5,5 55,5'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  opacity: .04;
+  pointer-events: none;
+}
+
+/* Gold glow center */
+body::after {
+  content: '';
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,168,76,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   CONTAINER (override bootstrap)
+═══════════════════════════════════════════ */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100% !important;
+  max-width: 420px !important;
+  padding: 3.5rem 3rem !important;
+  background: var(--deep);
+  border: 1px solid rgba(201,168,76,.2);
+  animation: fadeInUp .7s ease forwards;
+}
+
+/* Top gold ornament line */
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+/* ── Fade in animation ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   HEADING
+═══════════════════════════════════════════ */
+.container h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 8px;
+  text-align: center;
+  color: var(--gold-lt);
+  text-transform: uppercase;
+  margin-bottom: .4rem;
+}
+
+/* Subtext bawah heading */
+.container h2::after {
+  content: 'Admin Panel';
+  display: block;
+  font-family: var(--font-body);
+  font-size: .58rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--grey);
+  font-weight: 300;
+  margin-top: .3rem;
+}
+
+/* Divider ornament bawah heading */
+.container h2 + * {
+  position: relative;
+}
+
+.container h2 + *::before {
+  content: '';
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,.3), transparent);
+  margin: 1.5rem 0 2rem;
+}
+
+/* ═══════════════════════════════════════════
+   FORM GROUP
+═══════════════════════════════════════════ */
+.form-group {
+  margin-bottom: 1.4rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: .62rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: .6rem;
+  font-weight: 400;
+}
+
+.form-group input {
+  width: 100%;
+  padding: .85rem 1rem;
+  background: rgba(201,168,76,.04);
+  border: 1px solid rgba(201,168,76,.15);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: .85rem;
+  letter-spacing: .5px;
+  outline: none;
+  transition: border-color .3s, background .3s;
+  border-radius: 0;
+}
+
+.form-group input::placeholder {
+  color: rgba(245,240,235,.2);
+}
+
+.form-group input:focus {
+  border-color: rgba(201,168,76,.55);
+  background: rgba(201,168,76,.07);
+  box-shadow: none;
+}
+
+/* ═══════════════════════════════════════════
+   SUBMIT BUTTON
+═══════════════════════════════════════════ */
+button[type="submit"] {
+  width: 100%;
+  margin-top: .6rem;
+  padding: 1rem;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .3s, color .3s, letter-spacing .3s;
+  border-radius: 0;
+}
+
+button[type="submit"]:hover {
+  background: transparent;
+  color: var(--gold);
+  letter-spacing: 5px;
+}
+
+/* ═══════════════════════════════════════════
+   ALERT / ERROR (Laravel validation)
+═══════════════════════════════════════════ */
+.alert-danger,
+.invalid-feedback {
+  background: rgba(180,60,60,.1);
+  border: 1px solid rgba(180,60,60,.25);
+  color: #e08080;
+  font-size: .72rem;
+  letter-spacing: 1px;
+  padding: .75rem 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 0;
+  list-style: none;
+}
+
+.is-invalid {
+  border-color: rgba(180,60,60,.4) !important;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .container {
+    padding: 2.5rem 1.5rem !important;
+    margin: 1rem !important;
+  }
+}
