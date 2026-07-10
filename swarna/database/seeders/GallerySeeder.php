@@ -7,30 +7,41 @@ use Illuminate\Database\Seeder;
 
 class GallerySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Don't duplicate if already seeded
         if (Gallery::count() > 0) {
             return;
         }
 
-        $items = [
-            ['title' => 'Desain Batik Modern', 'image' => 'img/gallery/1.jpg', 'category' => 'Desain'],
-            ['title' => 'Koleksi Tekstil', 'image' => 'img/gallery/2.jpg', 'category' => 'Produksi'],
-            ['title' => 'Interior Design', 'image' => 'img/gallery/3.jpg', 'category' => 'Desain'],
-            ['title' => 'Fashion Line', 'image' => 'img/gallery/4.jpg', 'category' => 'Produksi'],
-            ['title' => 'Art Installation', 'image' => 'img/gallery/5.jpg', 'category' => 'Seni'],
-            ['title' => 'Branding Project', 'image' => 'img/gallery/6.jpg', 'category' => 'Desain'],
-            ['title' => 'Custom Crafts', 'image' => 'img/gallery/7.jpg', 'category' => 'Produksi'],
-            ['title' => 'Furniture Design', 'image' => 'img/gallery/8.jpg', 'category' => 'Desain'],
-            ['title' => 'Textile Collection', 'image' => 'img/gallery/9.jpg', 'category' => 'Produksi'],
+        $availableImages = [
+            'img/model 1.png',
+            'img/baju kaos.png',
+            'img/gantungan kunci.jpeg',
+            'img/stiker.jpeg',
+            'img/Totebag.jpg',
+            'img/SWARNA.png',
+            'img/SWARNA-logo no1.png',
+            'img/swarna hero.png',
         ];
 
-        foreach ($items as $item) {
-            Gallery::create($item);
+        $items = [
+            ['title' => 'Desain Batik Modern', 'category' => 'Desain'],
+            ['title' => 'Koleksi Tekstil', 'category' => 'Produksi'],
+            ['title' => 'Interior Design', 'category' => 'Desain'],
+            ['title' => 'Fashion Line', 'category' => 'Produksi'],
+            ['title' => 'Art Installation', 'category' => 'Seni'],
+            ['title' => 'Branding Project', 'category' => 'Desain'],
+            ['title' => 'Custom Crafts', 'category' => 'Produksi'],
+            ['title' => 'Furniture Design', 'category' => 'Desain'],
+            ['title' => 'Textile Collection', 'category' => 'Produksi'],
+        ];
+
+        foreach ($items as $i => $item) {
+            Gallery::create([
+                'title' => $item['title'],
+                'image' => $availableImages[$i % count($availableImages)],
+                'category' => $item['category'],
+            ]);
         }
     }
 }

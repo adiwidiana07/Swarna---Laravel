@@ -79,7 +79,7 @@
   {{-- About History --}}
   <div class="about-history">
     <div class="about-history-image">
-      <img src="{{ $home->about_image ? Storage::url($home->about_image) : asset('img/about-swarna.jpg') }}"
+      <img src="{{ $home->about_image ? Storage::url($home->about_image) : asset('img/swarna hero.png') }}"
            alt="Tentang Swarna — studio kreatif Bali"
            loading="lazy">
     </div>

@@ -14,7 +14,19 @@ Route::get('/', function () {
 Route::get('/divisi', fn() => view('divisi', ['divisis' => \App\Models\Divisi::all()]));
 Route::get('/gallery', fn() => view('gallery', ['galleryItems' => \App\Models\Gallery::all()]));
 Route::get('/contact', fn() => view('contact'));
-Route::get('/about', fn() => view('about'));
+Route::post('/contact', function (\Illuminate\Http\Request $request) {
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'message' => 'required|string',
+    ]);
+    \Illuminate\Support\Facades\Log::info('Contact form submission', $validated);
+    return back()->with('success', 'Pesan Anda telah terkirim! Kami akan menghubungi Anda segera.');
+});
+Route::get('/about', function () {
+    $home = \App\Models\HomeContent::getInstance();
+    return view('about', compact('home'));
+});
 
 // ── Auth ───────────────────────────────────────────────────────────
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -27,7 +39,11 @@ Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
-        Route::view('/', 'admin.admin-dashboard')->name('dashboard');
+        Route::get('/', function () {
+            $galleryCount = \App\Models\Gallery::count();
+            $divisiCount = \App\Models\Divisi::count();
+            return view('admin.admin-dashboard', compact('galleryCount', 'divisiCount'));
+        })->name('dashboard');
 
         // Home – CRUD konten halaman index
         Route::get('/home',  [AdminHomeController::class, 'index'])->name('home');

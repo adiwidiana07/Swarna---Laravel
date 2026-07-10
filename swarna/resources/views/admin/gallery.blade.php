@@ -89,7 +89,7 @@
                                 @forelse($items as $item)
                                     <tr>
                                         <td>
-                                            <img src="{{ Storage::url($item->image) }}" class="table-image" alt="{{ $item->title }}">
+                                            <img src="{{ str_starts_with($item->image, 'img/') ? asset($item->image) : Storage::url($item->image) }}" class="table-image" alt="{{ $item->title }}">
                                         </td>
                                         <td class="align-middle fw-semibold text-white">{{ $item->title }}</td>
                                         <td class="align-middle"><span class="badge bg-warning text-dark">{{ $item->category }}</span></td>

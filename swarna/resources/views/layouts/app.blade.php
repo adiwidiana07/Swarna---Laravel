@@ -26,12 +26,20 @@
 
   <ul class="nav-links" id="navLinks">
     <li><a href="{{ url('/') }}">Home</a></li>
-    <li><a href="{{ url('/#about') }}">About</a></li>
+    <li><a href="{{ url('/about') }}">Tentang</a></li>
     <li><a href="{{ url('/divisi') }}">Divisi</a></li>
     <li><a href="{{ url('/gallery') }}">Galeri</a></li>
-    <li><a href="{{ url('/#cta') }}">Kontak</a></li>
+    <li><a href="{{ url('/contact') }}">Kontak</a></li>
   </ul>
-<a href="{{ route('login') }}" class="btn-nav-login">Masuk</a>
+@auth
+  <a href="{{ route('admin.dashboard') }}" class="btn-nav-login">Dashboard</a>
+  <form method="POST" action="{{ route('logout') }}" style="display:inline">
+    @csrf
+    <button type="submit" class="btn-nav-login" style="cursor:pointer;background:transparent;border:1px solid rgba(201,168,76,.22);color:var(--gold-dim);padding:.55rem 1.4rem;font-family:var(--font-body);font-size:.65rem;letter-spacing:3px;text-transform:uppercase;border-radius:var(--radius-sm);transition:all var(--t-mid)">Keluar</button>
+  </form>
+@else
+  <a href="{{ route('login') }}" class="btn-nav-login">Masuk</a>
+@endauth
 </nav>
     @yield('content')
     <footer id="footer">
@@ -64,10 +72,11 @@
       <div class="footer-col">
         <h4>Navigasi</h4>
         <ul>
-          <li><a href="#hero">Home</a></li>
-          <li><a href="#about">Tentang</a></li>
-          <li><a href="#gallery">Galeri</a></li>
-          <li><a href="#cta">Kolaborasi</a></li>
+          <li><a href="{{ url('/') }}">Home</a></li>
+          <li><a href="{{ url('/about') }}">Tentang</a></li>
+          <li><a href="{{ url('/divisi') }}">Divisi</a></li>
+          <li><a href="{{ url('/gallery') }}">Galeri</a></li>
+          <li><a href="{{ url('/contact') }}">Kontak</a></li>
         </ul>
       </div>
 
